@@ -38,22 +38,37 @@ public class InsuredRestController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+
+//    @GetMapping("searchName/{name}")
+//    public @ResponseBody ResponseEntity<Insured> findByName(@PathVariable String name) {
+//        Optional<Insured> insured = insuredService.findByName(name);
+//        if (insured.isPresent()){
+//            return ResponseEntity.status(HttpStatus.OK).body(insured.get());
+//        }
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//    }
+
     @GetMapping("searchName/{name}")
-    public @ResponseBody ResponseEntity<Insured> findByName(@PathVariable String name) {
-        Optional<Insured> insured = insuredService.findByName(name);
-        if (insured.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(insured.get());
+    public @ResponseBody ResponseEntity<List<Insured>> findByName(@PathVariable String name){
+        List<Insured> insureds = insuredService.findByName(name);
+        if (insureds.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(insureds);
     }
+
+
     @GetMapping("searchSurname/{surname}")
-    public @ResponseBody ResponseEntity<Insured> findBySurname(@PathVariable String surname){
-        Optional<Insured> insured = insuredService.findBySurname(surname);
-        if (insured.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(insured.get());
+    public @ResponseBody ResponseEntity<List<Insured>> findBySurname(@PathVariable String surname){
+        List<Insured> insureds = insuredService.findBySurname(surname);
+        if (insureds.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(insureds);
     }
+
+
     @GetMapping("searchPolicyNumber/{policyNumber}")
     public @ResponseBody ResponseEntity<Insured> findByPolicyNumber(@PathVariable String policyNumber){
         Optional<Insured> insured = insuredService.findByPolicyNumber(policyNumber);

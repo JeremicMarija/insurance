@@ -8,9 +8,14 @@ import java.util.Optional;
 
 public interface InsuredService {
     Insured save(Insured insured);
+
     Optional<Insured> findById(Long id);
+
     List<Insured> findAll();
-    Optional<Insured> findByName(String name);
-    Optional<Insured> findBySurname(String surname);
+
+    List<Insured> findByName(String name);
+
+    List<Insured> findBySurname(String surname);
+
     Optional<Insured> findByPolicyNumber(String policyNumber);
 }

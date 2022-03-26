@@ -28,18 +28,20 @@ public class InsuredServiceImpl implements InsuredService {
         return insuredRepository.findAll();
     }
 
+
+
     @Override
     public Optional<Insured> findById(Long id) {
         return insuredRepository.findById(id);
     }
 
     @Override
-    public Optional<Insured> findByName(String name) {
+    public List<Insured> findByName(String name) {
         return insuredRepository.findByName(name);
     }
 
     @Override
-    public Optional<Insured> findBySurname(String surname) {
+    public List<Insured> findBySurname(String surname) {
         return insuredRepository.findBySurname(surname);
     }
 

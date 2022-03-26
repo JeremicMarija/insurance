@@ -9,7 +9,15 @@ import java.util.Optional;
 public interface VehicleService {
 
     Vehicle save(Vehicle vehicle);
+
     Optional<Vehicle> findById(Long id);
 
     List<Vehicle> findAll();
+
+    List<Vehicle> findByModel(String model);
+
+    List<Vehicle> findByBrand(String brand);
+
+    Optional<Vehicle> findByRegistrationNumber(String registartionNumber);
+
 }

@@ -32,4 +32,19 @@ public class VehicleServiceImpl implements VehicleService {
     public Optional<Vehicle> findById(Long id) {
         return vehicleRepository.findById(id);
     }
+
+    @Override
+    public List<Vehicle> findByModel(String model) {
+        return vehicleRepository.findByModel(model);
+    }
+
+    @Override
+    public List<Vehicle> findByBrand(String brand) {
+        return vehicleRepository.findByBrand(brand);
+    }
+
+    @Override
+    public Optional<Vehicle> findByRegistrationNumber(String registrationNumber) {
+        return vehicleRepository.findByRegistrationNumber(registrationNumber);
+    }
 }

@@ -40,15 +40,6 @@ public class InsuredRestController {
     }
 
 
-//    @GetMapping("searchName/{name}")
-//    public @ResponseBody ResponseEntity<Insured> findByName(@PathVariable String name) {
-//        Optional<Insured> insured = insuredService.findByName(name);
-//        if (insured.isPresent()){
-//            return ResponseEntity.status(HttpStatus.OK).body(insured.get());
-//        }
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//    }
-
     @GetMapping("searchName/{name}")
     public @ResponseBody ResponseEntity<List<Insured>> findByName(@PathVariable String name){
         List<Insured> insureds = insuredService.findByName(name);

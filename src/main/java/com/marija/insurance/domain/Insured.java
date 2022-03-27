@@ -3,6 +3,7 @@ package com.marija.insurance.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Insured {
     private String surname;
 
     @Column
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column
     private String policyNumber;
@@ -62,11 +63,11 @@ public class Insured {
         this.surname = surname;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

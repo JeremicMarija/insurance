@@ -42,6 +42,7 @@ public class MaterialDamage {
     private List<MaterialDamageItem> materialDamageItems;
 
 
+
     public long getId() {
         return id;
     }
@@ -80,5 +81,13 @@ public class MaterialDamage {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public List<MaterialDamageItem> getMaterialDamageItems() {
+        return materialDamageItems;
+    }
+
+    public void setMaterialDamageItems(List<MaterialDamageItem> materialDamageItems) {
+        this.materialDamageItems = materialDamageItems;
     }
 }

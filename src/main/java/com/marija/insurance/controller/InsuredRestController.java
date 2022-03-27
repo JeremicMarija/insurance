@@ -30,7 +30,7 @@ public class InsuredRestController {
         return ResponseEntity.status(HttpStatus.OK).body(insuredService.findAll());
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("get/{id}")
     public @ResponseBody ResponseEntity<Insured> findById(@PathVariable Long id) {
         Optional<Insured> insured = insuredService.findById(id);
         if (insured.isPresent()) {
@@ -73,5 +73,23 @@ public class InsuredRestController {
     @PostMapping("save")
     public @ResponseBody ResponseEntity<Insured> save(@Valid @RequestBody Insured insured){
         return ResponseEntity.ok(insuredService.save(insured));
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<Insured> updateInsured(@PathVariable("id") long id, @RequestBody Insured insured){
+        Optional<Insured> insuredData = insuredService.findById(id);
+        if (insuredData.isPresent()){
+            Insured insured1 = insuredData.get();
+            insured1.setName(insured.getName());
+            insured1.setSurname(insured.getSurname());
+            insured1.setDateOfBirth(insured.getDateOfBirth());
+            insured1.setTypeOfInsurance(insured.getTypeOfInsurance());
+            insured1.setPolicyNumber(insured.getPolicyNumber());
+
+            return new ResponseEntity<>(insuredService.save(insured1),HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -64,4 +64,18 @@ public class MaterialDamageRestController {
         return ResponseEntity.ok(materialDamageService.save(materialDamage));
     }
 
+    @PutMapping("update/{id}")
+    public ResponseEntity<MaterialDamage> updateMaterialDamage(@PathVariable("id") long id, @RequestBody MaterialDamage materialDamage){
+        Optional<MaterialDamage> materialDamageData = materialDamageService.findById(id);
+        if (materialDamageData.isPresent()){
+           MaterialDamage materialDamage1  = materialDamageData.get();
+           materialDamage1.setTypeOfDamage(materialDamage.getTypeOfDamage());
+
+            return new ResponseEntity<>(materialDamageService.save(materialDamage1),HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

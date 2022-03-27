@@ -1,5 +1,6 @@
 package com.marija.insurance.services.impl;
 
+import com.marija.insurance.domain.City;
 import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.repository.MaterialDamageRepository;
 import com.marija.insurance.services.MaterialDamageService;
@@ -32,4 +33,15 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
     public Optional<MaterialDamage> findById(Long id) {
         return materialDamageRepository.findById(id);
     }
+
+    @Override
+    public List<MaterialDamage> findByCity(String cityName) {
+        return materialDamageRepository.findByCity(cityName);
+    }
+
+    @Override
+    public List<MaterialDamage> findByVehicleRegNum(String vehicleRegNum) {
+        return materialDamageRepository.findByVehicleRegNum(vehicleRegNum);
+    }
+
 }

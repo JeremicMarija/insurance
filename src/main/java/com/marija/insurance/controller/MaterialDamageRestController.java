@@ -1,5 +1,6 @@
 package com.marija.insurance.controller;
 
+import com.marija.insurance.domain.City;
 import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.services.CityService;
@@ -39,6 +40,23 @@ public class MaterialDamageRestController {
             return ResponseEntity.status(HttpStatus.OK).body(materialDamage.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("searchDamageByCityName/{cityName}")
+    public @ResponseBody ResponseEntity<List<MaterialDamage>> findByCity(@PathVariable String cityName){
+        List<MaterialDamage> materialDamages = materialDamageService.findByCity(cityName);
+        if (materialDamages.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(materialDamages);
+    }
+    @GetMapping("searchDamageByVehicleRegNam/{vehicleRegNum}")
+    public @ResponseBody ResponseEntity<List<MaterialDamage>> findByVehicle(@PathVariable String vehicleRegNum){
+        List<MaterialDamage> materialDamages = materialDamageService.findByVehicleRegNum(vehicleRegNum);
+        if (materialDamages.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(materialDamages);
     }
 
     @PostMapping("save")

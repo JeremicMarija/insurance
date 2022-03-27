@@ -1,5 +1,6 @@
 package com.marija.insurance.services;
 
+import com.marija.insurance.domain.City;
 import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.domain.Vehicle;
 
@@ -12,5 +13,9 @@ public interface MaterialDamageService {
     MaterialDamage save(MaterialDamage materialDamage);
 
     Optional<MaterialDamage> findById(Long id);
+
+    List<MaterialDamage> findByCity(String cityName);
+
+    List<MaterialDamage> findByVehicleRegNum(String vehicleRegNum);
 
 }

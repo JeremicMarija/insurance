@@ -1,6 +1,7 @@
 package com.marija.insurance.services.impl;
 
 import com.marija.insurance.domain.Insured;
+import com.marija.insurance.exception.ResourceNotFoundException;
 import com.marija.insurance.repository.InsuredRepository;
 import com.marija.insurance.services.InsuredService;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,17 @@ public class InsuredServiceImpl implements InsuredService {
         this.insuredRepository = insuredRepository;
     }
 
+//    @Override
+//    public Insured save(Insured insured) {
+//        return insuredRepository.save(insured);
+//    }
+
     @Override
-    public Insured save(Insured insured) {
+    public Insured createInsured(Insured insured) {
+        Optional<Insured> insuredOptional = insuredRepository.findByPolicyNumber(insured.getPolicyNumber());
+        if(insuredOptional.isPresent()){
+            throw new IllegalStateException("Insured exist");
+        }
         return insuredRepository.save(insured);
     }
 
@@ -28,26 +38,66 @@ public class InsuredServiceImpl implements InsuredService {
         return insuredRepository.findAll();
     }
 
-
-
     @Override
-    public Optional<Insured> findById(Long id) {
-        return insuredRepository.findById(id);
+    public Insured getInsuredById(long id) {
+        Optional<Insured> insured = insuredRepository.findById(id);
+
+        if (insured.isPresent()){
+            return insured.get();
+        }else{
+            throw new ResourceNotFoundException("Insured", "Id", id);
+        }
     }
 
     @Override
     public List<Insured> findByName(String name) {
-        return insuredRepository.findByName(name);
+        List<Insured> insureds = insuredRepository.findByName(name);
+
+        if (!insureds.isEmpty()){
+            return insureds;
+        }else {
+            throw new  ResourceNotFoundException("Insured", "Name",name);
+        }
     }
 
     @Override
     public List<Insured> findBySurname(String surname) {
-        return insuredRepository.findBySurname(surname);
+        List<Insured> insureds = insuredRepository.findBySurname(surname);
+
+        if (!insureds.isEmpty()){
+            return insureds;
+        }else {
+            throw new  ResourceNotFoundException("Insured", "Surname",surname);
+        }
     }
 
     @Override
-    public Optional<Insured> findByPolicyNumber(String policyNumber) {
-        return insuredRepository.findByPolicyNumber(policyNumber);
+    public Insured findByPolicyNumber(String policyNumber) {
+        Optional<Insured> insured = insuredRepository.findByPolicyNumber(policyNumber);
+
+        if (insured.isPresent()){
+            return insured.get();
+        }else{
+            throw new ResourceNotFoundException("Insured", "PolicyNumber", policyNumber);
+        }
+    }
+
+    @Override
+    public Insured updateInsured(Insured insured, long id) {
+
+        Insured existingInsured = insuredRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Insured", "Id", id));
+
+        existingInsured.setName(insured.getName());
+        existingInsured.setSurname(insured.getSurname());
+        existingInsured.setPolicyNumber(insured.getPolicyNumber());
+        existingInsured.setDateOfBirth(insured.getDateOfBirth());
+        existingInsured.setTypeOfInsurance(insured.getTypeOfInsurance());
+
+        insuredRepository.save(existingInsured);
+
+        return existingInsured;
+
     }
 
 }

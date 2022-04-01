@@ -11,14 +11,16 @@ import java.util.Optional;
 @Repository
 public interface InsuredRepository  extends JpaRepository<Insured,Long> {
 
-    @Query("select i from Insured i where i.name like %?1")
+
+
+    @Query("SELECT i FROM Insured i WHERE i.name like %?1")
     List<Insured> findByName(String name);
 
 
-    @Query("select i from Insured i where i.surname like %?1")
+    @Query("SELECT i FROM Insured i WHERE i.surname like %?1")
     List<Insured> findBySurname(String surname);
 
-    @Query("select i from Insured i where i.policyNumber like %?1")
+    @Query("SELECT i FROM Insured i WHERE i.policyNumber like %?1")
     Optional<Insured> findByPolicyNumber(String policyNumber);
 
 

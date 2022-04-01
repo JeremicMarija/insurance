@@ -11,6 +11,11 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
+
+//    List<Vehicle> findAllByModel(String model);
+//    List<Vehicle> findAllByBrand(String brand);
+//    Optional<Vehicle> findByRegistrationNumber(String registrationNumber);
+
     @Query("select v from Vehicle v where v.model like %?1")
     List<Vehicle> findByModel(String model);
 

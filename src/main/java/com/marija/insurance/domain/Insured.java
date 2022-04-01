@@ -3,8 +3,10 @@ package com.marija.insurance.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,15 +18,24 @@ public class Insured {
     @Column
     private long id;
 
+    @Size(max = 30)
+    @NotEmpty
+    @NotNull
     @Column
     private String name;
 
+    @Size(max = 30)
+    @NotEmpty
+    @NotNull
     @Column
     private String surname;
 
+    @NotNull
     @Column
     private LocalDate dateOfBirth;
 
+    @NotEmpty
+    @NotNull
     @Column
     private String policyNumber;
 
@@ -93,5 +104,17 @@ public class Insured {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    @Override
+    public String toString(){
+        return "Insured{" +
+                "id= " + id +
+                "name= " + name +
+                "surname= " + surname +
+                "dataOfBirth= " + dateOfBirth +
+                "policyNumber= " + policyNumber +
+                "typeOfInsurence= " + typeOfInsurance +
+                "}";
     }
 }

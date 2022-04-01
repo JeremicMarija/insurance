@@ -31,6 +31,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Optional<Vehicle> findById(Long id) {
         return vehicleRepository.findById(id);
+//        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+//        Vehicle vehicle1 = vehicle.get();
+//        vehicle1.setBrand("brend");
+
     }
 
     @Override

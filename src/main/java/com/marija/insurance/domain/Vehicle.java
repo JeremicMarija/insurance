@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -34,6 +35,7 @@ public class Vehicle {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "insuerd_id", referencedColumnName = "id")
     @NotNull
+    @Size
     private Insured insured;
 
     public long getId() {

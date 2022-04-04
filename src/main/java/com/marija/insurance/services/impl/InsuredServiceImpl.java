@@ -19,10 +19,6 @@ public class InsuredServiceImpl implements InsuredService {
         this.insuredRepository = insuredRepository;
     }
 
-//    @Override
-//    public Insured save(Insured insured) {
-//        return insuredRepository.save(insured);
-//    }
 
     @Override
     public Insured createInsured(Insured insured) {

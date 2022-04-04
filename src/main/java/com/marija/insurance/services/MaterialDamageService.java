@@ -18,8 +18,5 @@ public interface MaterialDamageService {
 
     MaterialDamage updateMaterialDamage(MaterialDamage materialDamage, long id);
 
-//     Vehicle updateVehicle(Vehicle vehicle, long id);
-
-
 
 }

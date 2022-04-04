@@ -1,6 +1,7 @@
 package com.marija.insurance.services.impl;
 
 import com.marija.insurance.domain.MaterialDamageItem;
+import com.marija.insurance.exception.ResourceNotFoundException;
 import com.marija.insurance.repository.MaterialDamageItemRepository;
 import com.marija.insurance.services.MaterialDamageItemService;
 import org.springframework.stereotype.Service;
@@ -19,18 +20,32 @@ public class MaterialDamageItemServiceImpl implements MaterialDamageItemService 
     }
 
     @Override
+    public MaterialDamageItem createMaterialDamageItem(MaterialDamageItem materialDamageItem) {
+
+        Optional<MaterialDamageItem> materialDamageItemOptional = materialDamageItemRepository.findById(materialDamageItem.getId());
+
+        if (materialDamageItemOptional.isPresent()){
+            throw new IllegalStateException("Material Damage Item exist");
+        }
+        return materialDamageItemRepository.save(materialDamageItem);
+
+    }
+
+    @Override
     public List<MaterialDamageItem> findAll() {
         return materialDamageItemRepository.findAll();
     }
 
     @Override
-    public MaterialDamageItem save(MaterialDamageItem materialDamageItem) {
-        return materialDamageItemRepository.save(materialDamageItem);
-    }
+    public MaterialDamageItem getDamageItemById(long id) {
 
-    @Override
-    public Optional<MaterialDamageItem> findById(long id) {
-        return materialDamageItemRepository.findById(id);
+        Optional<MaterialDamageItem> materialDamageItemOptional = materialDamageItemRepository.findById(id);
+
+        if (materialDamageItemOptional.isPresent()){
+            return materialDamageItemOptional.get();
+        }else {
+            throw new ResourceNotFoundException("Damage Item", "Id",id);
+        }
     }
 
 

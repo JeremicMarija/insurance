@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MaterialDamageItemService {
+
+    MaterialDamageItem createMaterialDamageItem(MaterialDamageItem materialDamageItem);
+
     List<MaterialDamageItem> findAll();
 
-    MaterialDamageItem save(MaterialDamageItem materialDamageItem);
+    MaterialDamageItem getDamageItemById(long id);
 
-    Optional<MaterialDamageItem> findById(long id);
 
 }

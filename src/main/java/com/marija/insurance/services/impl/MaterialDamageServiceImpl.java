@@ -39,10 +39,10 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
     @Override
     public MaterialDamage getMaterialDamageById(long id) {
 
-        Optional<MaterialDamage> materialDamage = materialDamageRepository.findById(id);
+        Optional<MaterialDamage> materialDamageOptional = materialDamageRepository.findById(id);
 
-        if (materialDamage.isPresent()){
-            return materialDamage.get();
+        if (materialDamageOptional.isPresent()){
+            return materialDamageOptional.get();
         }else {
             throw new ResourceNotFoundException("Material Damage", "Id",id);
         }
@@ -80,6 +80,7 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
 
         existingMaterialDamage.setTypeOfDamage(materialDamage.getTypeOfDamage());
         existingMaterialDamage.setEntryDate(materialDamage.getEntryDate());
+        existingMaterialDamage.setMaterialDamageItems(materialDamage.getMaterialDamageItems());
 
         materialDamageRepository.save(existingMaterialDamage);
 

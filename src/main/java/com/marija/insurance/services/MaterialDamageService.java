@@ -1,21 +1,25 @@
 package com.marija.insurance.services;
 
-import com.marija.insurance.domain.City;
 import com.marija.insurance.domain.MaterialDamage;
-import com.marija.insurance.domain.Vehicle;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MaterialDamageService {
+
+    MaterialDamage createMaterialDamage(MaterialDamage materialDamage);
+
     List<MaterialDamage> findAll();
 
-    MaterialDamage save(MaterialDamage materialDamage);
-
-    Optional<MaterialDamage> findById(Long id);
+    MaterialDamage getMaterialDamageById(long id);
 
     List<MaterialDamage> findByCity(String cityName);
 
-    List<MaterialDamage> findByVehicleRegNum(String vehicleRegNum);
+    List<MaterialDamage> findByVehicle(String vehicleRegNum);
+
+    MaterialDamage updateMaterialDamage(MaterialDamage materialDamage, long id);
+
+//     Vehicle updateVehicle(Vehicle vehicle, long id);
+
+
 
 }

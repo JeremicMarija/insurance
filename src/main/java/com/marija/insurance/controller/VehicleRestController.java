@@ -29,7 +29,7 @@ public class VehicleRestController {
     }
 
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Vehicle>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.findAll());
     }

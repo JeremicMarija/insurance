@@ -2,6 +2,7 @@ package com.marija.insurance.services.impl;
 
 import com.marija.insurance.domain.City;
 import com.marija.insurance.domain.MaterialDamage;
+import com.marija.insurance.exception.ResourceNotFoundException;
 import com.marija.insurance.repository.MaterialDamageRepository;
 import com.marija.insurance.services.MaterialDamageService;
 import org.springframework.stereotype.Service;
@@ -20,28 +21,71 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
     }
 
     @Override
+    public MaterialDamage createMaterialDamage(MaterialDamage materialDamage) {
+        Optional<MaterialDamage> materialDamageOptional = materialDamageRepository.findById(materialDamage.getId());
+
+        if (materialDamageOptional.isPresent()){
+            throw new IllegalStateException("Material Damage exist");
+        }
+        return materialDamageRepository.save(materialDamage);
+
+    }
+
+    @Override
     public List<MaterialDamage> findAll() {
         return materialDamageRepository.findAll();
     }
 
     @Override
-    public MaterialDamage save(MaterialDamage materialDamage) {
-        return materialDamageRepository.save(materialDamage);
-    }
+    public MaterialDamage getMaterialDamageById(long id) {
 
-    @Override
-    public Optional<MaterialDamage> findById(Long id) {
-        return materialDamageRepository.findById(id);
+        Optional<MaterialDamage> materialDamage = materialDamageRepository.findById(id);
+
+        if (materialDamage.isPresent()){
+            return materialDamage.get();
+        }else {
+            throw new ResourceNotFoundException("Material Damage", "Id",id);
+        }
     }
 
     @Override
     public List<MaterialDamage> findByCity(String cityName) {
-        return materialDamageRepository.findByCity(cityName);
+
+        List<MaterialDamage> materialDamages = materialDamageRepository.findByCity(cityName);
+
+        if (!materialDamages.isEmpty()){
+            return materialDamages;
+        }else {
+            throw new ResourceNotFoundException("Material Damage", "City", cityName);
+        }
     }
 
     @Override
-    public List<MaterialDamage> findByVehicleRegNum(String vehicleRegNum) {
-        return materialDamageRepository.findByVehicleRegNum(vehicleRegNum);
+    public List<MaterialDamage> findByVehicle(String vehicleRegNum) {
+
+        List<MaterialDamage> materialDamages = materialDamageRepository.findByVehicleRegNum(vehicleRegNum);
+
+        if (!materialDamages.isEmpty()){
+            return materialDamages;
+        }else {
+            throw new ResourceNotFoundException("Material Damage", "Vehicle", vehicleRegNum);
+        }
     }
+
+    @Override
+    public MaterialDamage updateMaterialDamage(MaterialDamage materialDamage, long id) {
+
+        MaterialDamage existingMaterialDamage = materialDamageRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Material Damage","Id",id));
+
+        existingMaterialDamage.setTypeOfDamage(materialDamage.getTypeOfDamage());
+        existingMaterialDamage.setEntryDate(materialDamage.getEntryDate());
+
+        materialDamageRepository.save(existingMaterialDamage);
+
+        return existingMaterialDamage;
+
+    }
+
 
 }

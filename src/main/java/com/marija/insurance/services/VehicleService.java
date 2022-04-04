@@ -1,23 +1,23 @@
 package com.marija.insurance.services;
 
-import com.marija.insurance.domain.Insured;
 import com.marija.insurance.domain.Vehicle;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface VehicleService {
 
-    Vehicle save(Vehicle vehicle);
-
-    Optional<Vehicle> findById(Long id);
+    Vehicle createVehicle(Vehicle vehicle);
 
     List<Vehicle> findAll();
+
+    Vehicle getVehicleById(long id);
 
     List<Vehicle> findByModel(String model);
 
     List<Vehicle> findByBrand(String brand);
 
-    Optional<Vehicle> findByRegistrationNumber(String registartionNumber);
+    Vehicle findByRegistrationNumber(String registrationNumber);
+
+    Vehicle updateVehicle(Vehicle vehicle, long id);
 
 }

@@ -12,16 +12,13 @@ import java.util.Optional;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
 
-//    List<Vehicle> findAllByModel(String model);
-//    List<Vehicle> findAllByBrand(String brand);
-//    Optional<Vehicle> findByRegistrationNumber(String registrationNumber);
-
-    @Query("select v from Vehicle v where v.model like %?1")
+//    SELECT i FROM Insured i WHERE i.name like %?1
+    @Query("SELECT v FROM Vehicle v WHERE v.model like %?1")
     List<Vehicle> findByModel(String model);
 
-    @Query("select v from Vehicle v where v.brand like %?1")
+    @Query("SELECT v FROM Vehicle v WHERE v.brand like %?1")
     List<Vehicle> findByBrand(String brand);
 
-    @Query("select v from Vehicle v where v.registrationNumber like %?1")
-    Optional<Vehicle> findByRegistrationNumber(String registrationNumber);
+    @Query("SELECT v FROM Vehicle v WHERE v.registrationNumber like %?1")
+    Optional<Vehicle> findByRegistrationNumber(String  registrationNumber);
 }

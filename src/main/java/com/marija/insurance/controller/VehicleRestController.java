@@ -1,17 +1,13 @@
 package com.marija.insurance.controller;
 
-import com.marija.insurance.domain.Insured;
 import com.marija.insurance.domain.Vehicle;
-import com.marija.insurance.services.InsuredService;
 import com.marija.insurance.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/vehicles")
@@ -27,66 +23,40 @@ public class VehicleRestController {
     }
 
 
-    @GetMapping("all")
-    public @ResponseBody ResponseEntity<List<Vehicle>> findAll(){
+    @PostMapping
+    public ResponseEntity<Vehicle> saveVehicle(@RequestBody Vehicle vehicle){
+        return new ResponseEntity<Vehicle>(vehicleService.createVehicle(vehicle), HttpStatus.CREATED);
+    }
+
+
+    @GetMapping()
+    public ResponseEntity<List<Vehicle>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.findAll());
     }
 
-    @GetMapping("id/{id}")
-    public @ResponseBody ResponseEntity<Vehicle> findById(@PathVariable Long id){
-        Optional<Vehicle> vehicle = vehicleService.findById(id);
-        if(vehicle.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(vehicle.get());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @GetMapping("{id}")
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") long vehicleId) {
+        return new ResponseEntity<Vehicle>(vehicleService.getVehicleById(vehicleId),HttpStatus.OK);
     }
 
-    @GetMapping("searchModel/{model}")
-    public @ResponseBody ResponseEntity<List<Vehicle>> findByModel(@PathVariable String model){
-        List<Vehicle> vehicles = vehicleService.findByModel(model);
-        if (vehicles.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(vehicles);
+    @GetMapping("searchByModel/{model}")
+    public ResponseEntity<List<Vehicle>> findByModel(@PathVariable String model){
+        return new ResponseEntity<List<Vehicle>>(vehicleService.findByModel(model),HttpStatus.OK);
+    }
+    @GetMapping("searchByBrand/{brand}")
+    public ResponseEntity<List<Vehicle>> findByBrand(@PathVariable String brand){
+        return new ResponseEntity<List<Vehicle>>(vehicleService.findByBrand(brand),HttpStatus.OK);
     }
 
-    @GetMapping("searchBrand/{brand}")
-    public @ResponseBody ResponseEntity<List<Vehicle>> findByBrand(@PathVariable String brand){
-        List<Vehicle> vehicles = vehicleService.findByBrand(brand);
-        if (vehicles.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(vehicles);
+    @GetMapping("searchByRegistrationNumber/{registrationNumber}")
+    public ResponseEntity<Vehicle> findByRegistrationNumber(@PathVariable String registrationNumber){
+        return new ResponseEntity<Vehicle>(vehicleService.findByRegistrationNumber(registrationNumber),HttpStatus.OK);
     }
 
-    @GetMapping("searchRegistrationNumber/{registrationNumber}")
-    public @ResponseBody ResponseEntity<Vehicle> findByRegistrationNumber(@PathVariable String registrationNumber){
-        Optional<Vehicle> vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
-        if (vehicle.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(vehicle.get());
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
 
-    @PostMapping("save")
-    public @ResponseBody ResponseEntity<Vehicle> save(@Valid @RequestBody Vehicle vehicle){
-        return ResponseEntity.ok(vehicleService.save(vehicle));
-    }
-
-    @PutMapping("update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") long id, @RequestBody Vehicle vehicle){
-        Optional<Vehicle> vehicleData = vehicleService.findById(id);
-        if (vehicleData.isPresent()){
-            Vehicle vehicle1 = vehicleData.get();
-            vehicle1.setModel(vehicle.getModel());
-            vehicle1.setBrand(vehicle.getBrand());
-            vehicle1.setRegistrationNumber(vehicle.getRegistrationNumber());
-
-            return new ResponseEntity<>(vehicleService.save(vehicle1),HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<Vehicle>(vehicleService.updateVehicle(vehicle,id),HttpStatus.OK);
     }
 
 

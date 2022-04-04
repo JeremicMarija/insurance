@@ -18,13 +18,13 @@ public class Insured {
     @Column
     private long id;
 
-    @Size(max = 30)
+    @Size(max = 30,min = 2,message = "the number of characters must be min 2 and max 30")
     @NotEmpty
     @NotNull
     @Column
     private String name;
 
-    @Size(max = 30)
+    @Size(max = 30,min = 2,message = "the number of characters must be min 2 and max 30")
     @NotEmpty
     @NotNull
     @Column

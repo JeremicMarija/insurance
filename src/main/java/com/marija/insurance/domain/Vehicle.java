@@ -3,6 +3,7 @@ package com.marija.insurance.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
@@ -18,12 +19,21 @@ public class Vehicle {
     @Column
     private long id;
 
+    @Size(max = 30,min = 1,message = "the number of characters must be min 1 and max 30")
+    @NotEmpty
+    @NotNull
     @Column
     private String model;
 
+    @Size(max = 30,min = 1,message = "the number of characters must be min 1 and max 30")
+    @NotEmpty
+    @NotNull
     @Column
     private String brand;
 
+    @Size(max = 30,min = 3,message = "the number of characters must be min 3 and max 30")
+    @NotEmpty
+    @NotNull
     @Column
     private String registrationNumber;
 
@@ -35,7 +45,6 @@ public class Vehicle {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "insuerd_id", referencedColumnName = "id")
     @NotNull
-    @Size
     private Insured insured;
 
     public long getId() {

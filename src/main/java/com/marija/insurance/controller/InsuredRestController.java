@@ -1,16 +1,13 @@
 package com.marija.insurance.controller;
 
 import com.marija.insurance.domain.Insured;
-import com.marija.insurance.exceptions.InsuredException;
 import com.marija.insurance.services.InsuredService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/insureds")
@@ -65,23 +62,4 @@ public class InsuredRestController {
         return new ResponseEntity<Insured>(insuredService.updateInsured(insured,id),HttpStatus.OK);
     }
 
-
-
-//    @PutMapping("update/{id}")
-//    public ResponseEntity<Insured> updateInsured(@PathVariable("id") long id, @RequestBody Insured insured){
-//        Optional<Insured> insuredData = insuredService.findById(id);
-//        if (insuredData.isPresent()){
-//            Insured insured1 = insuredData.get();
-//            insured1.setName(insured.getName());
-//            insured1.setSurname(insured.getSurname());
-//            insured1.setDateOfBirth(insured.getDateOfBirth());
-//            insured1.setTypeOfInsurance(insured.getTypeOfInsurance());
-//            insured1.setPolicyNumber(insured.getPolicyNumber());
-//
-//            return new ResponseEntity<>(insuredService.save(insured1),HttpStatus.OK);
-//        }
-//        else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
 }

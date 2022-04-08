@@ -17,6 +17,8 @@ public class DamageTypeRestController {
     public DamageTypeRestController(DamageTypeService damageTypeService) {
         this.damageTypeService = damageTypeService;
     }
+
+
     @GetMapping
     public ResponseEntity<List<DamageType>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(damageTypeService.findAll());

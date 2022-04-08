@@ -1,9 +1,9 @@
 package com.marija.insurance.repository;
 
-import com.marija.insurance.domain.DamageType;
+import com.marija.insurance.domain.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DamageTypeRepository extends JpaRepository<DamageType, Long> {
+public interface CityRepository extends JpaRepository<City, Long> {
 }

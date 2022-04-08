@@ -2,8 +2,10 @@ package com.marija.insurance.services;
 
 import com.marija.insurance.domain.DamageType;
 
+import java.util.List;
+
 public interface DamageTypeService {
 
-    DamageType createDamageType(DamageType damageType);
-//    MaterialDamageItem createMaterialDamageItem(MaterialDamageItem materialDamageItem);
+    List<DamageType> findAll();
+//    DamageType createDamageType(DamageType damageType);
 }

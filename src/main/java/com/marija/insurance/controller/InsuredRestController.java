@@ -23,6 +23,7 @@ public class InsuredRestController {
     }
 
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Insured> saveInsured(@RequestBody Insured insured){
         return new ResponseEntity<Insured>(insuredService.createInsured(insured), HttpStatus.CREATED);
@@ -57,6 +58,7 @@ public class InsuredRestController {
     }
 
 
+    @CrossOrigin
     @PutMapping("{id}")
     public ResponseEntity<Insured> updateInsured(@PathVariable("id") long id, @RequestBody Insured insured){
         return new ResponseEntity<Insured>(insuredService.updateInsured(insured,id),HttpStatus.OK);

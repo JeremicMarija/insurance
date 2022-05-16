@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class MaterialDamage {
     private long id;
 
     @Column
-    private LocalDateTime entryDate;
+    private LocalDate entryDate;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -51,11 +52,11 @@ public class MaterialDamage {
         this.id = id;
     }
 
-    public LocalDateTime getEntryDate() {
+    public LocalDate getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(LocalDateTime entryDate) {
+    public void setEntryDate(LocalDate entryDate) {
         this.entryDate = entryDate;
     }
 

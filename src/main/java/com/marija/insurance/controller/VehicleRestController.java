@@ -33,6 +33,7 @@ public class VehicleRestController {
 //        return new ResponseEntity<Vehicle>(vehicleService.createVehicle(vehicle), HttpStatus.CREATED);
 //    }
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<VehicleDto> createVehicle(@RequestBody VehicleDto vehicleDto){
 
@@ -86,6 +87,7 @@ public class VehicleRestController {
 //    public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") long id, @RequestBody Vehicle vehicle){
 //        return new ResponseEntity<Vehicle>(vehicleService.updateVehicle(vehicle,id),HttpStatus.OK);
 //    }
+    @CrossOrigin
     @PutMapping()
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody VehicleDto vehicleDto){
         return new ResponseEntity<Vehicle>(vehicleService.updateVehicle(vehicleDto),HttpStatus.OK);

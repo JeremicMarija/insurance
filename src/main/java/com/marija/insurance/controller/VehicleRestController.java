@@ -44,14 +44,14 @@ public class VehicleRestController {
     }
 
 
-//    @GetMapping
-//    public ResponseEntity<List<Vehicle>> getAllVehicles(){
-//        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getAllVehicles());
-//    }
     @GetMapping
-    public List<VehicleDto> getAllVehicles(){
-        return vehicleService.getAllVehicles().stream().map(vehicle -> modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+    public ResponseEntity<List<Vehicle>> getAllVehicles(){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getAllVehicles());
     }
+//    @GetMapping
+//    public List<VehicleDto> getAllVehicles(){
+//        return vehicleService.getAllVehicles().stream().map(vehicle -> modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
+//    }
 
 //    @GetMapping("{id}")
 //    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") long vehicleId) {

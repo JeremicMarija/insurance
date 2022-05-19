@@ -1,7 +1,9 @@
 package com.marija.insurance.controller;
 
 import com.marija.insurance.domain.MaterialDamage;
+import com.marija.insurance.dto.MaterialDamageDto;
 import com.marija.insurance.services.MaterialDamageService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import java.util.List;
 public class MaterialDamageRestController {
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private final MaterialDamageService materialDamageService;
 
     public MaterialDamageRestController(MaterialDamageService materialDamageService) {
@@ -21,9 +26,18 @@ public class MaterialDamageRestController {
     }
 
 
+//    @PostMapping
+//    public ResponseEntity<MaterialDamage> saveMaterialDamage(@RequestBody MaterialDamage materialDamage){
+//        return new ResponseEntity<MaterialDamage>(materialDamageService.createMaterialDamage(materialDamage), HttpStatus.CREATED);
+//    }
+    @CrossOrigin
     @PostMapping
-    public ResponseEntity<MaterialDamage> saveMaterialDamage(@RequestBody MaterialDamage materialDamage){
-        return new ResponseEntity<MaterialDamage>(materialDamageService.createMaterialDamage(materialDamage), HttpStatus.CREATED);
+    public ResponseEntity<MaterialDamageDto>createMaterialDamage(@RequestBody MaterialDamageDto materialDamageDto){
+
+        MaterialDamage materialDamage = materialDamageService.createMaterialDamage(materialDamageDto);
+        MaterialDamageDto materialDamageResponse = modelMapper.map(materialDamage, MaterialDamageDto.class);
+
+        return new ResponseEntity<MaterialDamageDto>(materialDamageResponse, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -46,9 +60,16 @@ public class MaterialDamageRestController {
         return new ResponseEntity<List<MaterialDamage>>(materialDamageService.findByVehicle(vehicleRegNum),HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<MaterialDamage> updateMaterialDamage(@PathVariable("id") long id, @RequestBody MaterialDamage materialDamage){
-        return new ResponseEntity<MaterialDamage>(materialDamageService.updateMaterialDamage(materialDamage,id),HttpStatus.OK);
+//    @CrossOrigin
+//    @PutMapping("{id}")
+//    public ResponseEntity<MaterialDamage> updateMaterialDamage(@PathVariable("id") long id, @RequestBody MaterialDamage materialDamage){
+//        return new ResponseEntity<MaterialDamage>(materialDamageService.updateMaterialDamage(materialDamage,id),HttpStatus.OK);
+//    }
+
+    @CrossOrigin
+    @PutMapping()
+    public ResponseEntity<MaterialDamage> updateMaterialDamage(@RequestBody MaterialDamageDto materialDamageDto){
+        return new ResponseEntity<MaterialDamage>(materialDamageService.updateMaterialDamage(materialDamageDto),HttpStatus.OK);
     }
 
 

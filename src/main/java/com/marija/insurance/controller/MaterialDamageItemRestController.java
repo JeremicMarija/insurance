@@ -2,6 +2,7 @@ package com.marija.insurance.controller;
 
 import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.domain.MaterialDamageItem;
+import com.marija.insurance.dto.MaterialDamageDto;
 import com.marija.insurance.dto.MaterialDamageItemDto;
 import com.marija.insurance.services.MaterialDamageItemService;
 import org.modelmapper.ModelMapper;
@@ -45,10 +46,27 @@ public class MaterialDamageItemRestController {
         return ResponseEntity.status(HttpStatus.OK).body(materialDamageItemService.findAll());
     }
 
+//    @GetMapping("{id}")
+//    public ResponseEntity<MaterialDamageItem> getDamageItemById(@PathVariable ("id") long damageItemId){
+//        return new ResponseEntity<MaterialDamageItem>(materialDamageItemService.getDamageItemById(damageItemId),HttpStatus.OK);
+//    }
     @GetMapping("{id}")
-    public ResponseEntity<MaterialDamageItem> getDamageItemById(@PathVariable ("id") long damageItemId){
-        return new ResponseEntity<MaterialDamageItem>(materialDamageItemService.getDamageItemById(damageItemId),HttpStatus.OK);
+    public ResponseEntity<MaterialDamageItemDto> getDamageItemById(@PathVariable (name ="id") long damageItemId){
+
+        MaterialDamageItem materialDamageItem = materialDamageItemService.getDamageItemById(damageItemId);
+        MaterialDamageItemDto materialDamageItemResponse = modelMapper.map(materialDamageItem, MaterialDamageItemDto.class);
+
+        return ResponseEntity.ok().body(materialDamageItemResponse);
     }
+
+//    @GetMapping("{id}")
+//    public ResponseEntity<MaterialDamageDto> getMaterialDamageById(@PathVariable(name = "id") long materialDamageId){
+//        MaterialDamage materialDamage = materialDamageService.getMaterialDamageById(materialDamageId);
+//
+//        MaterialDamageDto materialDamageResponse = modelMapper.map(materialDamage, MaterialDamageDto.class);
+//        return ResponseEntity.ok().body(materialDamageResponse);
+//
+//    }
 
 
 }

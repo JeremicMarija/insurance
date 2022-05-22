@@ -45,10 +45,27 @@ public class MaterialDamageRestController {
         return ResponseEntity.status(HttpStatus.OK).body(materialDamageService.findAll());
     }
 
+//    @GetMapping("{id}")
+//    public ResponseEntity<MaterialDamage> getMaterialDamageById(@PathVariable("id") long materialDamageId){
+//        return new ResponseEntity<MaterialDamage>(materialDamageService.getMaterialDamageById(materialDamageId),HttpStatus.OK);
+//    }
     @GetMapping("{id}")
-    public ResponseEntity<MaterialDamage> getMaterialDamageById(@PathVariable("id") long materialDamageId){
-        return new ResponseEntity<MaterialDamage>(materialDamageService.getMaterialDamageById(materialDamageId),HttpStatus.OK);
+    public ResponseEntity<MaterialDamageDto> getMaterialDamageById(@PathVariable(name = "id") long materialDamageId){
+        MaterialDamage materialDamage = materialDamageService.getMaterialDamageById(materialDamageId);
+
+        MaterialDamageDto materialDamageResponse = modelMapper.map(materialDamage, MaterialDamageDto.class);
+        return ResponseEntity.ok().body(materialDamageResponse);
+
     }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable(name = "id") Long vehicleId){
+//        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+//
+//        VehicleDto vehicleResponse = modelMapper.map(vehicle, VehicleDto.class);
+//
+//        return ResponseEntity.ok().body(vehicleResponse);
+//    }
 
     @GetMapping("searchByCityName/{cityName}")
     public ResponseEntity<List<MaterialDamage>> findByCityName(@PathVariable String cityName){

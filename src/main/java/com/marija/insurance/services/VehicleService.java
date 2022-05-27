@@ -24,4 +24,6 @@ public interface VehicleService {
 //    Vehicle updateVehicle(Vehicle vehicle, long id)
     Vehicle updateVehicle(VehicleDto vehicleDto);
 
+    List<Vehicle>getVehiclesByInsuredId(Integer insuredId);
+
 }

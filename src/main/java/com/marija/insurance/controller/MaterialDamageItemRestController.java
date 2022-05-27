@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/materialdamageitems")
+// /materialDamages/{id - materialDamage} / create
 public class MaterialDamageItemRestController {
 
     private final MaterialDamageItemService materialDamageItemService;

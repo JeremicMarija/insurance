@@ -99,6 +99,18 @@ public class VehicleServiceImpl implements VehicleService {
             throw new ResourceNotFoundException("Vehicle", "RegistrationNumber", registrationNumber);
         }
     }
+    //GET VEHICLES BY INSURED ID
+    @Override
+    public List<Vehicle> getVehiclesByInsuredId(Integer insuredId) {
+//        System.out.println("job");
+        List<Vehicle> vehicles = vehicleRepository.findByInsuredId(insuredId);
+
+        if (!vehicles.isEmpty()){
+            return vehicles;
+        }else {
+            throw new  ResourceNotFoundException("Vehicle", "InsuredId", insuredId);
+        }
+    }
 
 //    @Override
 //    public Vehicle updateVehicle(Vehicle vehicle, long id) {

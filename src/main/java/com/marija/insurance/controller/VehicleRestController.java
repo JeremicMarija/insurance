@@ -82,6 +82,12 @@ public class VehicleRestController {
         return new ResponseEntity<Vehicle>(vehicleService.findByRegistrationNumber(registrationNumber),HttpStatus.OK);
     }
 
+    //GET VEHICLES BY INSURED ID
+    @GetMapping("insured/{insuredId}")
+    public ResponseEntity<List<Vehicle>> getVehiclesByInsuredId(@PathVariable Integer insuredId){
+        return new ResponseEntity<List<Vehicle>>(vehicleService.getVehiclesByInsuredId(insuredId),HttpStatus.OK);
+    }
+
 
 //    @PutMapping("{id}")
 //    public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") long id, @RequestBody Vehicle vehicle){

@@ -80,6 +80,17 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
         }
     }
 
+//  GET Material Damages BY Vehicle ID
+    @Override
+    public List<MaterialDamage> getMaterialDamagesByVehicleId(Integer vehicleId){
+        List<MaterialDamage> materialDamages = materialDamageRepository.findByVehicleId(vehicleId);
+        if(!materialDamages.isEmpty()){
+            return materialDamages;
+        }else {
+            throw new ResourceNotFoundException("Material Damage", "VehicleId", vehicleId);
+        }
+    }
+
     @Override
     public List<MaterialDamage> findByCity(String cityName) {
 

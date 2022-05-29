@@ -1,6 +1,7 @@
 package com.marija.insurance.controller;
 
 import com.marija.insurance.domain.MaterialDamage;
+import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.dto.MaterialDamageDto;
 import com.marija.insurance.services.MaterialDamageService;
 import org.modelmapper.ModelMapper;
@@ -66,6 +67,18 @@ public class MaterialDamageRestController {
 //
 //        return ResponseEntity.ok().body(vehicleResponse);
 //    }
+//
+//    //GET VEHICLES BY INSURED ID
+//    @GetMapping("insured/{insuredId}")
+//    public ResponseEntity<List<Vehicle>> getVehiclesByInsuredId(@PathVariable Integer insuredId){
+//        return new ResponseEntity<List<Vehicle>>(vehicleService.getVehiclesByInsuredId(insuredId),HttpStatus.OK);
+//    }
+    //GET Material Damages By Vehicle ID
+    @GetMapping("vehicle/{vehicleId}")
+    public ResponseEntity<List<MaterialDamage>>getMaterialDamagesByVehicleId(@PathVariable Integer vehicleId){
+        return new ResponseEntity<List<MaterialDamage>>(materialDamageService.getMaterialDamagesByVehicleId(vehicleId),HttpStatus.OK);
+    }
+
 
     @GetMapping("searchByCityName/{cityName}")
     public ResponseEntity<List<MaterialDamage>> findByCityName(@PathVariable String cityName){

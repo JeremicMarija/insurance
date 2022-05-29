@@ -21,5 +21,6 @@ public interface MaterialDamageService {
 //    MaterialDamage updateMaterialDamage(MaterialDamage materialDamage, long id);
     MaterialDamage updateMaterialDamage(MaterialDamageDto materialDamageDto);
 
+    List<MaterialDamage>getMaterialDamagesByVehicleId(Integer vehicleId);
 
 }

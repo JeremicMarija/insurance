@@ -15,5 +15,5 @@ public interface MaterialDamageItemService {
 
     MaterialDamageItem getDamageItemById(long id);
 
-
+    List<MaterialDamageItem>getMaterialDamageItemsByMaterialDamageId(Integer materialdamageId);
 }

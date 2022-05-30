@@ -81,5 +81,16 @@ public class MaterialDamageItemServiceImpl implements MaterialDamageItemService 
         }
     }
 
+    @Override
+    public List<MaterialDamageItem> getMaterialDamageItemsByMaterialDamageId(Integer materialdamageId) {
+
+        List<MaterialDamageItem> materialDamageItems = materialDamageItemRepository.findByMaterialDamageId(materialdamageId);
+        if (!materialDamageItems.isEmpty()){
+            return materialDamageItems;
+        }else {
+            throw new ResourceNotFoundException("Material Damage Item", "MaterialDamageId", materialdamageId);
+        }
+    }
+
 
 }

@@ -47,6 +47,18 @@ public class MaterialDamageItemRestController {
         return ResponseEntity.status(HttpStatus.OK).body(materialDamageItemService.findAll());
     }
 
+    //GET Material Damages By Vehicle ID
+//    @GetMapping("vehicle/{vehicleId}")
+//    public ResponseEntity<List<MaterialDamage>>getMaterialDamagesByVehicleId(@PathVariable Integer vehicleId){
+//        return new ResponseEntity<List<MaterialDamage>>(materialDamageService.getMaterialDamagesByVehicleId(vehicleId),HttpStatus.OK);
+//    }
+    //GET Material Damage Items By Material Damage ID
+    @GetMapping("materialdamage/{materialdamageId}")
+    public ResponseEntity<List<MaterialDamageItem>>getMatreialDamageItemsByMaterialDamageId(@PathVariable Integer materialdamageId){
+        return new ResponseEntity<List<MaterialDamageItem>>(materialDamageItemService.getMaterialDamageItemsByMaterialDamageId(materialdamageId),HttpStatus.OK);
+    }
+
+
 //    @GetMapping("{id}")
 //    public ResponseEntity<MaterialDamageItem> getDamageItemById(@PathVariable ("id") long damageItemId){
 //        return new ResponseEntity<MaterialDamageItem>(materialDamageItemService.getDamageItemById(damageItemId),HttpStatus.OK);

@@ -96,4 +96,17 @@ public class InsuredServiceImpl implements InsuredService {
 
     }
 
+    @Override
+    public List<Insured> searchInsureds(String name, String surname, String policyNumber) {
+        List<Insured> insureds = insuredRepository.searchInsureds(name,surname,policyNumber);
+        if (!insureds.isEmpty()){
+            return insureds;
+        }else {
+            throw new  ResourceNotFoundException("Insured", "Search",name);
+        }
+    }
+
+
+
+
 }

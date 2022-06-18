@@ -23,6 +23,7 @@ public interface InsuredRepository  extends JpaRepository<Insured,Long> {
     @Query("SELECT i FROM Insured i WHERE i.policyNumber like %?1")
     Optional<Insured> findByPolicyNumber(String policyNumber);
 
-
+    @Query("SELECT i FROM Insured i WHERE (:name is null or i.name like %:name%) AND (:surname is null or i.surname like %:surname%) AND (:policyNumber is null or i.policyNumber like %:policyNumber%)")
+    List<Insured>searchInsureds(String name, String surname, String policyNumber);
 
 }

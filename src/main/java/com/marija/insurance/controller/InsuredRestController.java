@@ -65,4 +65,16 @@ public class InsuredRestController {
         return new ResponseEntity<Insured>(insuredService.updateInsured(insured,id),HttpStatus.OK);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Insured>> searchInsureds(@RequestParam(required = false) String name,
+                                 @RequestParam(required = false) String surname,
+                                 @RequestParam(required = false) String policyNumber){
+
+        System.out.println(surname + name + policyNumber);
+        return ResponseEntity.ok(insuredService.searchInsureds(name,surname,policyNumber));
+
+    }
+
+
 }

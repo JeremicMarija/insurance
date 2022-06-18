@@ -19,4 +19,7 @@ public interface InsuredService {
     Insured findByPolicyNumber(String policyNumber);
 
     Insured updateInsured(Insured insured, long id);
+
+    List<Insured>searchInsureds(String name, String surname, String policyNumber);
+
 }

@@ -89,16 +89,16 @@ public class VehicleServiceImpl implements VehicleService {
         }
     }
 
-    @Override
-    public Vehicle findByRegistrationNumber(String registrationNumber) {
-        Optional<Vehicle> vehicle = vehicleRepository.findByRegistrationNumber(registrationNumber);
-
-        if (vehicle.isPresent()){
-            return vehicle.get();
-        }else{
-            throw new ResourceNotFoundException("Vehicle", "RegistrationNumber", registrationNumber);
-        }
-    }
+//    @Override
+//    public Vehicle findByRegistrationNumber(String registrationNumber) {
+//        Optional<Vehicle> vehicle = vehicleRepository.findByRegistrationNumber(registrationNumber);
+//
+//        if (vehicle.isPresent()){
+//            return vehicle.get();
+//        }else{
+//            throw new ResourceNotFoundException("Vehicle", "RegistrationNumber", registrationNumber);
+//        }
+//    }
     //GET VEHICLES BY INSURED ID
     @Override
     public List<Vehicle> getVehiclesByInsuredId(Integer insuredId) {
@@ -112,7 +112,17 @@ public class VehicleServiceImpl implements VehicleService {
         }
     }
 
-//    @Override
+    @Override
+    public List<Vehicle> searchVehicles(String registrationNumber) {
+       List<Vehicle> vehicles = vehicleRepository.searchVehicles(registrationNumber);
+        if (!vehicles.isEmpty()){
+            return vehicles;
+        }else {
+            throw new  ResourceNotFoundException("Vehicle", "Reg. Number", registrationNumber);
+        }
+    }
+
+    //    @Override
 //    public Vehicle updateVehicle(Vehicle vehicle, long id) {
 //
 //        Vehicle existingVehicle = vehicleRepository.findById(id).orElseThrow(

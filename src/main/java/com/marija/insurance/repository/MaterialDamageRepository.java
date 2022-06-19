@@ -18,4 +18,9 @@ public interface MaterialDamageRepository extends JpaRepository<MaterialDamage, 
     @Query(value = "SELECT * FROM material_damage md WHERE md.vehicle_id = :vehicleId", nativeQuery = true)
     List<MaterialDamage> findByVehicleId(Integer vehicleId);
 
+    @Query("SELECT md FROM MaterialDamage md WHERE md.vehicle.registrationNumber like %?1")
+    List<MaterialDamage> searchMaterialDamages(String vehicleRegNum);
+//    (:registrationNumber is null or v.registrationNumber like %:registrationNumber%)
+
+//    (:vehicle.registrationNumber is null or md.vehicle.registrationNumber like %:vehicle.registrationNumber%)
 }

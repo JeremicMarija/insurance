@@ -1,6 +1,7 @@
 package com.marija.insurance.services.impl;
 
 import com.marija.insurance.domain.City;
+import com.marija.insurance.domain.Insured;
 import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.dto.MaterialDamageDto;
@@ -88,6 +89,16 @@ public class MaterialDamageServiceImpl implements MaterialDamageService {
             return materialDamages;
         }else {
             throw new ResourceNotFoundException("Material Damage", "VehicleId", vehicleId);
+        }
+    }
+
+    @Override
+    public List<MaterialDamage> searchMaterialDamages(String vehicleRegNum) {
+        List<MaterialDamage> materialDamages = materialDamageRepository.searchMaterialDamages(vehicleRegNum);
+        if (!materialDamages.isEmpty()){
+            return materialDamages;
+        }else {
+            throw new  ResourceNotFoundException("Material Damage", "For Vehicle Reg.Num", vehicleRegNum);
         }
     }
 

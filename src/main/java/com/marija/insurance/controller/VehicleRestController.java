@@ -1,5 +1,6 @@
 package com.marija.insurance.controller;
 
+import com.marija.insurance.domain.Insured;
 import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.dto.VehicleDto;
 import com.marija.insurance.services.VehicleService;
@@ -78,10 +79,10 @@ public class VehicleRestController {
         return new ResponseEntity<List<Vehicle>>(vehicleService.findByBrand(brand),HttpStatus.OK);
     }
 
-    @GetMapping("searchByRegistrationNumber/{registrationNumber}")
-    public ResponseEntity<Vehicle> findByRegistrationNumber(@PathVariable String registrationNumber){
-        return new ResponseEntity<Vehicle>(vehicleService.findByRegistrationNumber(registrationNumber),HttpStatus.OK);
-    }
+//    @GetMapping("searchByRegistrationNumber/{registrationNumber}")
+//    public ResponseEntity<Vehicle> findByRegistrationNumber(@PathVariable String registrationNumber){
+//        return new ResponseEntity<Vehicle>(vehicleService.findByRegistrationNumber(registrationNumber),HttpStatus.OK);
+//    }
 
     //GET VEHICLES BY INSURED ID
     @GetMapping("insured/{insuredId}")
@@ -100,5 +101,13 @@ public class VehicleRestController {
         return new ResponseEntity<Vehicle>(vehicleService.updateVehicle(vehicleDto),HttpStatus.OK);
     }
 
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Vehicle>> searchVehicles(@RequestParam String registrationNumber){
+
+        System.out.println(registrationNumber);
+        return ResponseEntity.ok(vehicleService.searchVehicles(registrationNumber));
+    }
 
 }

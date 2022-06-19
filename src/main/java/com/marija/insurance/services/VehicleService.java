@@ -18,12 +18,11 @@ public interface VehicleService {
 
     List<Vehicle> findByBrand(String brand);
 
-    Vehicle findByRegistrationNumber(String registrationNumber);
+//    Vehicle findByRegistrationNumber(String registrationNumber);
 
-//    Vehicle updateVehicle(Vehicle vehicle, long id);
-//    Vehicle updateVehicle(Vehicle vehicle, long id)
     Vehicle updateVehicle(VehicleDto vehicleDto);
 
     List<Vehicle>getVehiclesByInsuredId(Integer insuredId);
 
+    List <Vehicle> searchVehicles(String registrationNumber);
 }

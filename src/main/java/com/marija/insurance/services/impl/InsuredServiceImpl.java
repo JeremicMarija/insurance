@@ -102,7 +102,7 @@ public class InsuredServiceImpl implements InsuredService {
         if (!insureds.isEmpty()){
             return insureds;
         }else {
-            throw new  ResourceNotFoundException("Insured", "Search",name);
+            throw new  ResourceNotFoundException("Insured", "Required parameter",name);
         }
     }
 

@@ -103,6 +103,10 @@ public class MaterialDamageRestController {
         return new ResponseEntity<MaterialDamage>(materialDamageService.updateMaterialDamage(materialDamageDto),HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<MaterialDamage>> searchMaterialDamage(@RequestParam String vehicleRegNum){
+        return ResponseEntity.ok(materialDamageService.searchMaterialDamages(vehicleRegNum));
+    }
 
 
 }

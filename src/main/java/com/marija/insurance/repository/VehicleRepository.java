@@ -26,4 +26,9 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     @Query(value = "SELECT * FROM vehicle v WHERE v.insuerd_id = :insuredId", nativeQuery = true)
     List<Vehicle> findByInsuredId(Integer insuredId);
+
+    @Query("SELECT v FROM Vehicle v WHERE (:registrationNumber is null or v.registrationNumber like %:registrationNumber%)")
+    List<Vehicle> searchVehicles(String registrationNumber);
+
+
 }

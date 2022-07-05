@@ -20,7 +20,5 @@ public interface MaterialDamageRepository extends JpaRepository<MaterialDamage, 
 
     @Query("SELECT md FROM MaterialDamage md WHERE md.vehicle.registrationNumber like %?1")
     List<MaterialDamage> searchMaterialDamages(String vehicleRegNum);
-//    (:registrationNumber is null or v.registrationNumber like %:registrationNumber%)
 
-//    (:vehicle.registrationNumber is null or md.vehicle.registrationNumber like %:vehicle.registrationNumber%)
 }

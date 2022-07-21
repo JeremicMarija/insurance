@@ -24,7 +24,6 @@ public class AuthRestController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
-//    @CrossOrigin(origins = "*")
     @RequestMapping( value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
         try {

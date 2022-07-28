@@ -4,12 +4,15 @@ import com.marija.insurance.domain.MaterialDamage;
 import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.dto.MaterialDamageDto;
 import com.marija.insurance.services.MaterialDamageService;
+import com.marija.insurance.services.impl.ReportService;
+import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RestController
@@ -22,6 +25,9 @@ public class MaterialDamageRestController {
 
     @Autowired
     private final MaterialDamageService materialDamageService;
+
+    @Autowired
+    private ReportService reportService;
 
     public MaterialDamageRestController(MaterialDamageService materialDamageService) {
         this.materialDamageService = materialDamageService;
@@ -45,6 +51,11 @@ public class MaterialDamageRestController {
     @GetMapping
     public ResponseEntity<List<MaterialDamage>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(materialDamageService.findAll());
+    }
+
+    @GetMapping("/report/{format}")
+    public String generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportReportMaterialDamages(format);
     }
 
 //    @GetMapping("{id}")
@@ -78,6 +89,10 @@ public class MaterialDamageRestController {
     @GetMapping("vehicle/{vehicleId}")
     public ResponseEntity<List<MaterialDamage>>getMaterialDamagesByVehicleId(@PathVariable Integer vehicleId){
         return new ResponseEntity<List<MaterialDamage>>(materialDamageService.getMaterialDamagesByVehicleId(vehicleId),HttpStatus.OK);
+    }
+    @GetMapping("/vehicle/{vehicleId}/report")
+    public String generateReportOfVehicles(@PathVariable Integer vehicleId) throws JRException, FileNotFoundException {
+        return reportService.exportReportMaterialDamagesOfVehicle(vehicleId);
     }
 
 

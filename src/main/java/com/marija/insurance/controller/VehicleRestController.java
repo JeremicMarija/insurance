@@ -4,12 +4,15 @@ import com.marija.insurance.domain.Insured;
 import com.marija.insurance.domain.Vehicle;
 import com.marija.insurance.dto.VehicleDto;
 import com.marija.insurance.services.VehicleService;
+import com.marija.insurance.services.impl.ReportService;
+import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,9 @@ public class VehicleRestController {
 
     @Autowired
     private final VehicleService vehicleService;
+
+    @Autowired
+    private ReportService reportService;
 
 
     public VehicleRestController(VehicleService vehicleService) {
@@ -51,6 +57,12 @@ public class VehicleRestController {
     public ResponseEntity<List<Vehicle>> getAllVehicles(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getAllVehicles());
     }
+
+    @GetMapping("/report/{format}")
+    public String generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportReportVehicles(format);
+    }
+
 //    @GetMapping
 //    public List<VehicleDto> getAllVehicles(){
 //        return vehicleService.getAllVehicles().stream().map(vehicle -> modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
@@ -89,7 +101,10 @@ public class VehicleRestController {
     public ResponseEntity<List<Vehicle>> getVehiclesByInsuredId(@PathVariable Integer insuredId){
         return new ResponseEntity<List<Vehicle>>(vehicleService.getVehiclesByInsuredId(insuredId),HttpStatus.OK);
     }
-
+    @GetMapping("/insured/{insuredId}/report")
+    public String generateReportOfVehicles(@PathVariable Integer insuredId) throws JRException, FileNotFoundException {
+        return reportService.exportReportVehiclesOfInsured(insuredId);
+    }
 
 //    @PutMapping("{id}")
 //    public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") long id, @RequestBody Vehicle vehicle){

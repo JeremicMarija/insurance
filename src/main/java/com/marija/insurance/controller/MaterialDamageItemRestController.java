@@ -5,12 +5,15 @@ import com.marija.insurance.domain.MaterialDamageItem;
 import com.marija.insurance.dto.MaterialDamageDto;
 import com.marija.insurance.dto.MaterialDamageItemDto;
 import com.marija.insurance.services.MaterialDamageItemService;
+import com.marija.insurance.services.impl.ReportService;
+import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RestController
@@ -23,6 +26,9 @@ public class MaterialDamageItemRestController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ReportService reportService;
 
     public MaterialDamageItemRestController(MaterialDamageItemService materialDamageItemService) {
         this.materialDamageItemService = materialDamageItemService;
@@ -57,6 +63,11 @@ public class MaterialDamageItemRestController {
     @GetMapping("materialdamage/{materialdamageId}")
     public ResponseEntity<List<MaterialDamageItem>>getMatreialDamageItemsByMaterialDamageId(@PathVariable Integer materialdamageId){
         return new ResponseEntity<List<MaterialDamageItem>>(materialDamageItemService.getMaterialDamageItemsByMaterialDamageId(materialdamageId),HttpStatus.OK);
+    }
+
+    @GetMapping("/materialdamage/{materialdamageId}/report")
+    public String generateReportOfVehicles(@PathVariable Integer materialdamageId) throws JRException, FileNotFoundException {
+        return reportService.exportReportMaterialDamageItemsOfMaterialDamage(materialdamageId);
     }
 
 

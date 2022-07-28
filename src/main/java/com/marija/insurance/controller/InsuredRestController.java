@@ -2,11 +2,14 @@ package com.marija.insurance.controller;
 
 import com.marija.insurance.domain.Insured;
 import com.marija.insurance.services.InsuredService;
+import com.marija.insurance.services.impl.ReportService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,9 @@ public class InsuredRestController {
 
     @Autowired
     private final InsuredService insuredService;
+
+    @Autowired
+    private ReportService reportService;
 
 
     public InsuredRestController(InsuredService insuredService) {
@@ -33,6 +39,10 @@ public class InsuredRestController {
     @GetMapping()
     public ResponseEntity<List<Insured>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(insuredService.findAll());
+    }
+    @GetMapping("/report/{format}")
+    public String generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
+        return reportService.exportReportInsureds(format);
     }
 
     @GetMapping("{id}")

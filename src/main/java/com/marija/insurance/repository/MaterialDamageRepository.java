@@ -18,6 +18,11 @@ public interface MaterialDamageRepository extends JpaRepository<MaterialDamage, 
     @Query(value = "SELECT * FROM material_damage md WHERE md.vehicle_id = :vehicleId", nativeQuery = true)
     List<MaterialDamage> findByVehicleId(Integer vehicleId);
 
+
+    @Query(value = "SELECT * FROM material_damage md WHERE md.vehicle_id = :vehicleId", nativeQuery = true)
+    //@Query(value = "SELECT COUNT(md.vehicle_id), md.entry_date, md.vehicle_id FROM material_damage md WHERE md.entry_date > '1998-01-01' AND md.vehicle_id = :vehicleId GROUP BY md.vehicle_id", nativeQuery = true)
+    List<MaterialDamage> findByVehicleIdForStatistic(Integer vehicleId);
+
     @Query("SELECT md FROM MaterialDamage md WHERE md.vehicle.registrationNumber like %?1")
     List<MaterialDamage> searchMaterialDamages(String vehicleRegNum);
 

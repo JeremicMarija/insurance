@@ -95,6 +95,16 @@ public class MaterialDamageRestController {
         return reportService.exportReportMaterialDamagesOfVehicle(vehicleId);
     }
 
+    @GetMapping("/vehicle/{vehicleId}/reportStatistics")
+    public String generateReportOfVehiclesStatistics(@PathVariable Integer vehicleId) throws JRException, FileNotFoundException {
+        return reportService.exportReportMaterialDamagesOfVehicleStatistic(vehicleId);
+    }
+
+//    @GetMapping("/vehicle/{vehicleId}/reportDamagesJson")
+//    public ResponseEntity<List<MaterialDamage>>getMaterialDamagesByVehicleIdReport(@PathVariable Integer vehicleId){
+//        return new ResponseEntity<List<MaterialDamage>>(materialDamageService.getMaterialDamagesByVehicleIdReport(vehicleId),HttpStatus.OK);
+//    }
+
 
     @GetMapping("searchByCityName/{cityName}")
     public ResponseEntity<List<MaterialDamage>> findByCityName(@PathVariable String cityName){

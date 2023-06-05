@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1329b414-41bf-4f3a-8e4b-619a3d01c85d">
+    <field name="entryDate" class="java.time.LocalDateTime">
+    </field>
+    <field name="vehicle" class="java.lang.Object">
+    </field>
+    <field name="COUNT(*)" class="java.lang.Long">
+<!--        <property name="com.jaspersoft.studio.field.name" value="COUNT(*)"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="COUNT(*)"/>-->
+    </field>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="61" splitType="Stretch"/>
+    </columnHeader>
+    <detail>
+        <band height="276" splitType="Stretch">
+            <barChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="100" y="-20" width="327" height="296" uuid="f273decd-91c6-4800-9e8e-3fe564e972e1"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report"/>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{vehicle}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{entryDate}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </barPlot>
+            </barChart>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--&lt;!&ndash; Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  &ndash;&gt;-->
+<!--<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="632d3a27-7c41-4805-9206-c8b2a9adee9f">-->
+
+<!--    <field name="id" class="java.lang.Long"/>-->
+<!--    <field name="entryDate" class="java.time.LocalDate"/>-->
+<!--&lt;!&ndash;    <field name="typeOfDamage" class="java.lang.Enum"/>&ndash;&gt;-->
+<!--    <field name="vehicle.registrationNumber" class="java.lang.Object"/>-->
+<!--&lt;!&ndash;    <field name="total" class="java.lang.Integer">&ndash;&gt;-->
+<!--&lt;!&ndash;    </field>&ndash;&gt;-->
+<!--    <variable name="countRecords" class="java.lang.Long" calculation="Count">-->
+<!--        <variableExpression><![CDATA[$F{id}]]></variableExpression>-->
+<!--        <initialValueExpression><![CDATA[$F{id}]]></initialValueExpression>-->
+<!--    </variable>-->
+<!--    <background>-->
+<!--        <band splitType="Stretch"/>-->
+<!--    </background>-->
+<!--    <title>-->
+<!--        <band height="353" splitType="Stretch">-->
+<!--            <barChart>-->
+<!--                <chart evaluationTime="Report">-->
+<!--                    <reportElement x="201" y="153" width="200" height="200" uuid="17b732bb-f8a9-468e-8ad8-6f9389c6a137"/>-->
+<!--                    <chartTitle/>-->
+<!--                    <chartSubtitle/>-->
+<!--                    <chartLegend/>-->
+<!--                </chart>-->
+<!--                <categoryDataset>-->
+<!--                    <dataset resetType="Report"/>-->
+<!--                    <categorySeries>-->
+<!--                        <seriesExpression><![CDATA[$F{vehicle.registrationNumber}]]></seriesExpression>-->
+<!--                        <categoryExpression><![CDATA[$F{entryDate}.getYear()]]></categoryExpression>-->
+<!--                        <valueExpression><![CDATA[$V{countRecords}]]></valueExpression>-->
+<!--&lt;!&ndash;                        <valueExpression><![CDATA[$F{total}]]></valueExpression>&ndash;&gt;-->
+<!--                        <labelExpression><![CDATA[$F{entryDate}.toString()]]></labelExpression>-->
+<!--                    </categorySeries>-->
+<!--                </categoryDataset>-->
+<!--                <barPlot>-->
+<!--                    <plot/>-->
+<!--                    <itemLabel/>-->
+<!--                    <categoryAxisFormat>-->
+<!--                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>-->
+<!--                    </categoryAxisFormat>-->
+<!--                    <valueAxisFormat>-->
+<!--                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>-->
+<!--                    </valueAxisFormat>-->
+<!--                </barPlot>-->
+<!--            </barChart>-->
+<!--        </band>-->
+<!--    </title>-->
+<!--</jasperReport>-->
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--&lt;!&ndash; Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  &ndash;&gt;-->
+<!--<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="632d3a27-7c41-4805-9206-c8b2a9adee9f">-->
+<!--    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql Data Adapter"/>-->
+<!--    <queryString language="SQL">-->
+<!--        <![CDATA[SELECT *,(SELECT COUNT(*)) AS total-->
+<!--FROM material_damage md-->
+<!--WHERE md.vehicle_id = 41]]>-->
+<!--    </queryString>-->
+<!--    <field name="id" class="java.lang.Long">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="id"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="id"/>-->
+<!--        <property name="com.jaspersoft.studio.field.tree.path" value="material_damage"/>-->
+<!--    </field>-->
+<!--    <field name="entryDate" class="java.time.LocalDateTime">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="entry_date"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="entry_date"/>-->
+<!--        <property name="com.jaspersoft.studio.field.tree.path" value="material_damage"/>-->
+<!--    </field>-->
+<!--    <field name="vehicle.registrationNumber" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="vehicle.registrationNumber"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="vehicle.registrationNumber"/>-->
+<!--        <property name="com.jaspersoft.studio.field.tree.path" value="material_damage"/>-->
+<!--    </field>-->
+<!--    <field name="total" class="java.lang.Integer">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="total"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="total"/>-->
+<!--    </field>-->
+<!--    <variable name="countRecords" class="java.lang.Long" calculation="Count">-->
+<!--        <variableExpression><![CDATA[$F{id}]]></variableExpression>-->
+<!--        <initialValueExpression><![CDATA[$F{id}]]></initialValueExpression>-->
+<!--    </variable>-->
+<!--    <background>-->
+<!--        <band splitType="Stretch"/>-->
+<!--    </background>-->
+<!--    <title>-->
+<!--        <band height="353" splitType="Stretch">-->
+<!--            <barChart>-->
+<!--                <chart evaluationTime="Report">-->
+<!--                    <reportElement x="60" y="70" width="341" height="283" uuid="ab6fc622-ac34-4bdc-92aa-e86e4e0b04b1"/>-->
+<!--                    <chartTitle/>-->
+<!--                    <chartSubtitle/>-->
+<!--                    <chartLegend/>-->
+<!--                </chart>-->
+<!--                <categoryDataset>-->
+<!--                    <dataset resetType="Report"/>-->
+<!--                    <categorySeries>-->
+<!--                        <seriesExpression><![CDATA[$F{vehicle.registrationNumber}]]></seriesExpression>-->
+<!--                        <categoryExpression><![CDATA[$F{entryDate}.getYear()]]></categoryExpression>-->
+<!--                        <valueExpression><![CDATA[$F{total}]]></valueExpression>-->
+<!--                        <labelExpression><![CDATA[$F{entryDate}.toString()]]></labelExpression>-->
+<!--                    </categorySeries>-->
+<!--                </categoryDataset>-->
+<!--                <barPlot>-->
+<!--                    <plot/>-->
+<!--                    <itemLabel/>-->
+<!--                    <categoryAxisFormat>-->
+<!--                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>-->
+<!--                    </categoryAxisFormat>-->
+<!--                    <valueAxisFormat>-->
+<!--                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>-->
+<!--                    </valueAxisFormat>-->
+<!--                </barPlot>-->
+<!--            </barChart>-->
+<!--        </band>-->
+<!--    </title>-->
+<!--</jasperReport>-->
+
+

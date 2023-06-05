@@ -23,5 +23,7 @@ public interface MaterialDamageService {
 
     List<MaterialDamage>getMaterialDamagesByVehicleId(Integer vehicleId);
 
+    List<MaterialDamage>getMaterialDamagesByVehicleIdReport(Integer vehicleId);
+
     List<MaterialDamage> searchMaterialDamages(String vehicleRegNum);
 }

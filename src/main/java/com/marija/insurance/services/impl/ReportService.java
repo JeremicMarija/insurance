@@ -128,6 +128,24 @@ public class ReportService {
 //        }
         return "report generated in path : " + path;
     }
+    public String exportReportMaterialDamagesOfVehicleStatistic(Integer vehicleId) throws FileNotFoundException, JRException {
+        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+        List<MaterialDamage> materialDamages = materialDamageRepository.findByVehicleIdForStatistic(vehicleId);
+        //Load file and compile it
+        File file = ResourceUtils.getFile("classpath:statisticsOfVehicleSuitability.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materialDamages);
+        Map<String,Object> parameters = new HashMap<>();
+        parameters.put("createdBy","Marija Jeremic");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
+//        if (reportFormat.equalsIgnoreCase("html")){
+//            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\statisticsOfVehicleSuitability.html");
+//        }
+//        if (reportFormat.equalsIgnoreCase("pdf")){
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\statisticsOfVehicleSuitability.pdf");
+//        }
+        return "report generated in path : " + path;
+    }
 
     public String exportReportMaterialDamageItemsOfMaterialDamage(Integer materialDamageId) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\Pioniri\\Desktop\\Report";

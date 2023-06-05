@@ -66,7 +66,7 @@ public class MaterialDamageItemRestController {
     }
 
     @GetMapping("/materialdamage/{materialdamageId}/report")
-    public String generateReportOfVehicles(@PathVariable Integer materialdamageId) throws JRException, FileNotFoundException {
+    public String generateReportOfDamageItems(@PathVariable Integer materialdamageId) throws JRException, FileNotFoundException {
         return reportService.exportReportMaterialDamageItemsOfMaterialDamage(materialdamageId);
     }
 

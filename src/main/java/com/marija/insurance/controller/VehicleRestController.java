@@ -8,7 +8,9 @@ import com.marija.insurance.services.impl.ReportService;
 import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,11 +37,6 @@ public class VehicleRestController {
         this.vehicleService = vehicleService;
     }
 
-//    @CrossOrigin
-//    @PostMapping
-//    public ResponseEntity<Vehicle> saveVehicle(@RequestBody Vehicle vehicle){
-//        return new ResponseEntity<Vehicle>(vehicleService.createVehicle(vehicle), HttpStatus.CREATED);
-//    }
 
     @CrossOrigin
     @PostMapping
@@ -58,20 +55,16 @@ public class VehicleRestController {
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getAllVehicles());
     }
 
-    @GetMapping("/report/{format}")
-    public String generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
-        return reportService.exportReportVehicles(format);
+    @GetMapping("/download/vehiclesReport")
+    public ResponseEntity<byte[]> generateReport() throws FileNotFoundException, JRException{
+        byte[] data = reportService.exportReportVehiclesPdf();
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vehiclesReport.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(data);
     }
 
-//    @GetMapping
-//    public List<VehicleDto> getAllVehicles(){
-//        return vehicleService.getAllVehicles().stream().map(vehicle -> modelMapper.map(vehicle, VehicleDto.class)).collect(Collectors.toList());
-//    }
-
-//    @GetMapping("{id}")
-//    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") long vehicleId) {
-//        return new ResponseEntity<Vehicle>(vehicleService.getVehicleById(vehicleId),HttpStatus.OK);
-//    }
     @GetMapping("/{id}")
     public ResponseEntity<VehicleDto> getVehicleById(@PathVariable(name = "id") Long vehicleId){
         Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
@@ -91,25 +84,22 @@ public class VehicleRestController {
         return new ResponseEntity<List<Vehicle>>(vehicleService.findByBrand(brand),HttpStatus.OK);
     }
 
-//    @GetMapping("searchByRegistrationNumber/{registrationNumber}")
-//    public ResponseEntity<Vehicle> findByRegistrationNumber(@PathVariable String registrationNumber){
-//        return new ResponseEntity<Vehicle>(vehicleService.findByRegistrationNumber(registrationNumber),HttpStatus.OK);
-//    }
 
     //GET VEHICLES BY INSURED ID
     @GetMapping("insured/{insuredId}")
     public ResponseEntity<List<Vehicle>> getVehiclesByInsuredId(@PathVariable Integer insuredId){
         return new ResponseEntity<List<Vehicle>>(vehicleService.getVehiclesByInsuredId(insuredId),HttpStatus.OK);
     }
-    @GetMapping("/insured/{insuredId}/report")
-    public String generateReportOfVehicles(@PathVariable Integer insuredId) throws JRException, FileNotFoundException {
-        return reportService.exportReportVehiclesOfInsured(insuredId);
+    @GetMapping("/download/vehiclesOfInsured/{insuredId}")
+    public ResponseEntity<byte[]> generateReportOfVehicles(@PathVariable Integer insuredId) throws FileNotFoundException, JRException{
+        byte[] data = reportService.exportReportVehiclesOfInsuredPdf(insuredId);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vehiclesOfInsured.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(data);
     }
 
-//    @PutMapping("{id}")
-//    public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") long id, @RequestBody Vehicle vehicle){
-//        return new ResponseEntity<Vehicle>(vehicleService.updateVehicle(vehicle,id),HttpStatus.OK);
-//    }
     @CrossOrigin
     @PutMapping()
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody VehicleDto vehicleDto){

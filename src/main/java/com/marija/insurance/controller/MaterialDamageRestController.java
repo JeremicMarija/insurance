@@ -8,7 +8,9 @@ import com.marija.insurance.services.impl.ReportService;
 import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,15 +55,18 @@ public class MaterialDamageRestController {
         return ResponseEntity.status(HttpStatus.OK).body(materialDamageService.findAll());
     }
 
-    @GetMapping("/report/{format}")
-    public String generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
-        return reportService.exportReportMaterialDamages(format);
+
+    @GetMapping("/download/materialDamagesReport")
+    public ResponseEntity<byte[]> generateReport() throws FileNotFoundException, JRException{
+        byte[] data = reportService.exportReportMaterialDamagesPdf();
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=materialDamagesReport.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(data);
     }
 
-//    @GetMapping("{id}")
-//    public ResponseEntity<MaterialDamage> getMaterialDamageById(@PathVariable("id") long materialDamageId){
-//        return new ResponseEntity<MaterialDamage>(materialDamageService.getMaterialDamageById(materialDamageId),HttpStatus.OK);
-//    }
+
     @GetMapping("{id}")
     public ResponseEntity<MaterialDamageDto> getMaterialDamageById(@PathVariable(name = "id") long materialDamageId){
         MaterialDamage materialDamage = materialDamageService.getMaterialDamageById(materialDamageId);
@@ -90,9 +95,15 @@ public class MaterialDamageRestController {
     public ResponseEntity<List<MaterialDamage>>getMaterialDamagesByVehicleId(@PathVariable Integer vehicleId){
         return new ResponseEntity<List<MaterialDamage>>(materialDamageService.getMaterialDamagesByVehicleId(vehicleId),HttpStatus.OK);
     }
-    @GetMapping("/vehicle/{vehicleId}/report")
-    public String generateReportOfVehicles(@PathVariable Integer vehicleId) throws JRException, FileNotFoundException {
-        return reportService.exportReportMaterialDamagesOfVehicle(vehicleId);
+
+    @GetMapping("/download/materialDamagesOfVehicle/{vehicleId}")
+    public ResponseEntity<byte[]> generateReportOfMaterialDamagesOfVehicle(@PathVariable Integer vehicleId) throws FileNotFoundException, JRException{
+        byte[] data = reportService.exportReportMaterialDamagesOfVehiclePdf(vehicleId);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=materialDamagesOfVehicle.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(data);
     }
 
     @GetMapping("/vehicle/{vehicleId}/reportStatistics")

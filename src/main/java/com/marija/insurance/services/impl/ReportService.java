@@ -36,8 +36,8 @@ public class ReportService {
     private MaterialDamageItemRepository materialDamageItemRepository;
 
 
-    public String exportReportInsureds(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+    public byte[] exportReportInsuredsPdf() throws FileNotFoundException, JRException {
+
         List<Insured> insureds = insuredRepository.findAll();
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:insureds.jrxml");
@@ -46,17 +46,13 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-        if (reportFormat.equalsIgnoreCase("html")){
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\insureds.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\insureds.pdf");
-        }
-        return "report generated in path : " + path;
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 
-    public String exportReportVehicles(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+
+    public byte[] exportReportVehiclesPdf() throws FileNotFoundException, JRException {
+
         List<Vehicle> vehicles = vehicleRepository.findAll();
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:vehicles.jrxml");
@@ -65,16 +61,13 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-        if (reportFormat.equalsIgnoreCase("html")){
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\vehicles.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\vehicles.pdf");
-        }
-        return "report generated in path : " + path;
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
-    public String exportReportVehiclesOfInsured(Integer insuredId) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+
+
+    public byte[] exportReportVehiclesOfInsuredPdf(Integer insuredId) throws FileNotFoundException, JRException {
+
         List<Vehicle> vehicles = vehicleRepository.findByInsuredId(insuredId);
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:vehiclesOfInsured.jrxml");
@@ -83,17 +76,11 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-//        if (reportFormat.equalsIgnoreCase("html")){
-//            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\vehiclesOfInsured.html");
-//        }
-//        if (reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\vehiclesOfInsured.pdf");
-//        }
-        return "report generated in path : " + path;
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 
-    public String exportReportMaterialDamages(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+    public byte[]  exportReportMaterialDamagesPdf() throws FileNotFoundException, JRException {
+
         List<MaterialDamage> materialDamages = materialDamageRepository.findAll();
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:materialdamages.jrxml");
@@ -102,16 +89,12 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-        if (reportFormat.equalsIgnoreCase("html")){
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\materialdamages.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\materialdamages.pdf");
-        }
-        return "report generated in path : " + path;
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
-    public String exportReportMaterialDamagesOfVehicle(Integer vehicleId) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+
+    public byte[] exportReportMaterialDamagesOfVehiclePdf(Integer vehicleId) throws FileNotFoundException, JRException {
+
         List<MaterialDamage> materialDamages = materialDamageRepository.findByVehicleId(vehicleId);
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:materialdamagesOfVehicle.jrxml");
@@ -120,14 +103,9 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-//        if (reportFormat.equalsIgnoreCase("html")){
-//            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\materialdamagesOfVehicle.html");
-//        }
-//        if (reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\materialdamagesOfVehicle.pdf");
-//        }
-        return "report generated in path : " + path;
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+
     public String exportReportMaterialDamagesOfVehicleStatistic(Integer vehicleId) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\Pioniri\\Desktop\\Report";
         List<MaterialDamage> materialDamages = materialDamageRepository.findByVehicleIdForStatistic(vehicleId);
@@ -147,8 +125,26 @@ public class ReportService {
         return "report generated in path : " + path;
     }
 
-    public String exportReportMaterialDamageItemsOfMaterialDamage(Integer materialDamageId) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+//    public String exportReportMaterialDamageItemsOfMaterialDamage(Integer materialDamageId) throws FileNotFoundException, JRException {
+//        String path = "C:\\Users\\Pioniri\\Desktop\\Report";
+//        List<MaterialDamageItem> materialDamageItems = materialDamageItemRepository.findByMaterialDamageId(materialDamageId);
+//        //Load file and compile it
+//        File file = ResourceUtils.getFile("classpath:materialdamageitemsOfMaterialdamage.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(materialDamageItems);
+//        Map<String,Object> parameters = new HashMap<>();
+//        parameters.put("createdBy","Marija Jeremic");
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
+////        if (reportFormat.equalsIgnoreCase("html")){
+////            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\materialdamageitemsOfMaterialdamage.html");
+////        }
+////        if (reportFormat.equalsIgnoreCase("pdf")){
+//        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\materialdamageitemsOfMaterialdamage.pdf");
+////        }
+//        return "report generated in path : " + path;
+//    }
+    public byte[] exportReportMaterialDamageItemsOfMaterialDamagePdf(Integer materialDamageId) throws FileNotFoundException, JRException {
+
         List<MaterialDamageItem> materialDamageItems = materialDamageItemRepository.findByMaterialDamageId(materialDamageId);
         //Load file and compile it
         File file = ResourceUtils.getFile("classpath:materialdamageitemsOfMaterialdamage.jrxml");
@@ -157,12 +153,6 @@ public class ReportService {
         Map<String,Object> parameters = new HashMap<>();
         parameters.put("createdBy","Marija Jeremic");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,dataSource);
-//        if (reportFormat.equalsIgnoreCase("html")){
-//            JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\materialdamageitemsOfMaterialdamage.html");
-//        }
-//        if (reportFormat.equalsIgnoreCase("pdf")){
-        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\materialdamageitemsOfMaterialdamage.pdf");
-//        }
-        return "report generated in path : " + path;
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 }

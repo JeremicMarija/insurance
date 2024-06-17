@@ -4,6 +4,7 @@ import com.marija.insurance.domain.Insured;
 import com.marija.insurance.exception.ResourceNotFoundException;
 import com.marija.insurance.repository.InsuredRepository;
 import com.marija.insurance.services.InsuredService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class InsuredServiceImpl implements InsuredService {
         this.insuredRepository = insuredRepository;
     }
 
-
     @Override
     public Insured createInsured(Insured insured) {
+
         Optional<Insured> insuredOptional = insuredRepository.findByPolicyNumber(insured.getPolicyNumber());
         if(insuredOptional.isPresent()){
             throw new IllegalStateException("Insured exist");
@@ -29,12 +30,15 @@ public class InsuredServiceImpl implements InsuredService {
         return insuredRepository.save(insured);
     }
 
+
+
     @Override
     public List<Insured> findAll() {
         return insuredRepository.findAll();
     }
 
     @Override
+    @CircuitBreaker(name = "insuredServiceCircuitBreaker", fallbackMethod = "fallbackGetInsuredById")
     public Insured getInsuredById(long id) {
         Optional<Insured> insured = insuredRepository.findById(id);
 
@@ -43,6 +47,14 @@ public class InsuredServiceImpl implements InsuredService {
         }else{
             throw new ResourceNotFoundException("Insured", "Id", id);
         }
+    }
+
+    // Fallback method for getInsuredById
+    public Insured fallbackGetInsuredById(long id, Throwable t) {
+        // Log the error
+        System.err.println("Fallback method for getInsuredById invoked due to: " + t.getMessage());
+
+        return null;
     }
 
     @Override
